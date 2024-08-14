@@ -23,7 +23,7 @@ exports.login = async (req, res) => {
   try {
     let foundUser = await User.findOne({ email });
     if (!foundUser) {
-      return res.status(400).json({ msg: "Username does not exist" });
+      return res.status(400).json({ msg: "The username or password does not correspond" });
     }
     const correctPassword = await bcryptjs.compare(
       password,
@@ -66,22 +66,10 @@ exports.verifyToken = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   const { id, username, email, password } = req.body;
-  const correctPassword = await bcryptjs.compare(
-    password,
-    foundUser.password
-  );
-  if (!correctPassword) {
-    return await res
-      .status(400)
-      .json({ msg: "The password does not correspond" });
-  }
-
   try {
-    const updateUser = await User.findByIdAndUpdate(
-      id,
-      { username, email, password },
-      { new: true }
-    );
+    const salt = await bcryptjs.genSalt(10);
+    const updatePassword = await bcryptjs.hash(password, salt);
+    const updateUser = await User.findByIdAndUpdate(id, { username, email,  password: updatePassword }, { new: true });
     res.json(updateUser);
   } catch (error) {
     res.status(500).json({
@@ -90,4 +78,3 @@ exports.updateUser = async (req, res) => {
     });
   }
 };
-// RECORDAR APLICAR user.findOne({}) para hacer la validacion

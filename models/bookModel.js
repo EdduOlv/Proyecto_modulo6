@@ -9,8 +9,20 @@ const BookSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    publisher: {
+      type: String,
+      required: true,
+    },
+    summary: {
+      type: String,
+      required: true,
+    },
+    pageCount: {
+      type: Number,
+    },
     price: {
       type: Number,
+      required: true,
     },
   },
   {

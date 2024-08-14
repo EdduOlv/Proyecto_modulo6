@@ -25,6 +25,15 @@ exports.login = async (req, res) => {
     if (!foundUser) {
       return res.status(400).json({ msg: "Username does not exist" });
     }
+    const correctPassword = await bcryptjs.compare(
+      password,
+      foundUser.password
+    );
+    if (!correctPassword) {
+      return await res
+        .status(400)
+        .json({ msg: "The username or password does not correspond" });
+    }
     const payLoad = { user: { id: foundUser.id } };
     jwt.sign(
       payLoad,
@@ -38,6 +47,45 @@ exports.login = async (req, res) => {
   } catch (error) {
     res.json({
       msg: "We have an error",
+      error,
+    });
+  }
+};
+
+exports.verifyToken = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({
+      msg: "We have an error",
+      error,
+    });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  const { id, username, email, password } = req.body;
+  const correctPassword = await bcryptjs.compare(
+    password,
+    foundUser.password
+  );
+  if (!correctPassword) {
+    return await res
+      .status(400)
+      .json({ msg: "The password does not correspond" });
+  }
+
+  try {
+    const updateUser = await User.findByIdAndUpdate(
+      id,
+      { username, email, password },
+      { new: true }
+    );
+    res.json(updateUser);
+  } catch (error) {
+    res.status(500).json({
+      msg: "There was an error updating the user",
       error,
     });
   }

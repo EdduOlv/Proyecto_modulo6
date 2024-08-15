@@ -120,3 +120,9 @@ SECRET=PROYECTO6
 }
 
 ```
+
+## Despliegue en Render
+
+Este link es el enlace previo que se escribe antes de cualquier endpoint.
+
+`https://proyecto-modulo6.onrender.com`

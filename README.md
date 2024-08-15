@@ -1,7 +1,7 @@
 ![UDD logo](https://github.com/EdduOlv/Proyecto-_Modulo1/assets/156525513/2c9572c9-af59-4edd-a716-f23cc96296b4)
 
 
-# Proyecto Modulo 5 Aplicación Web con React
+# Proyecto Modulo 6 Aplicación Backedn con autenticación
 
 Proyecto realizado en Node.js, express.js, cors y dotenv aplicando operaciones CRUD en la creación de usuarios, admin y productos.
 
@@ -91,9 +91,9 @@ SECRET=PROYECTO6
 
 ```
 {
-"username": "Titulo del libro",
-"email": "autor del libro",
-"password": "Editora",
+"username": "Nombre usuario",
+"email": "correousuario@ejemplo.com",
+"password": "contraseña123",
 }
 
 ```
@@ -101,9 +101,9 @@ SECRET=PROYECTO6
 
 ```
 {
-"adminName": "Titulo del libro",
-"email": "autor del libro",
-"password": "Editora",
+"adminName": "Nombre admin",
+"email": "correoadmin@ejemplo.com",
+"password": "contraseña123",
 }
 
 ```

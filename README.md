@@ -1,7 +1,7 @@
 ![UDD logo](https://github.com/EdduOlv/Proyecto-_Modulo1/assets/156525513/2c9572c9-af59-4edd-a716-f23cc96296b4)
 
 
-# Proyecto Modulo 6 Aplicación Backedn con autenticación
+# Proyecto Modulo 6 Aplicación Backend con autenticación
 
 Proyecto realizado en Node.js, express.js, cors y dotenv aplicando operaciones CRUD en la creación de usuarios, admin y productos.
 

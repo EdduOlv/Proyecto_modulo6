@@ -3,6 +3,10 @@ const Book = require('../models/bookModel')
 exports.createBook = async (req, res) => {
     const { title, author, publisher, summary, pageCount, price } = req.body;
     try {
+        let foundbook = await Admin.findOne({ title });
+        if (foundbook) {
+          return res.status(400).json({ msg: "the book already exists" });
+        }
         const newBook = await Book.create({ title, author, publisher, summary, pageCount, price })
         res.json(newBook)
     } catch (error) {

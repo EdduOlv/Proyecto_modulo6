@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 exports.createUser = async (req, res) => {
   const { username, email, password } = req.body;
   try {
+    let foundUser = await User.findOne({ email });
+    if (foundUser) {
+      return res.status(400).json({ msg: "the mail already exists" });
+    }
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
     const DBresp = await User.create({
@@ -23,7 +27,7 @@ exports.login = async (req, res) => {
   try {
     let foundUser = await User.findOne({ email });
     if (!foundUser) {
-      return res.status(400).json({ msg: "The username or password does not correspond" });
+      return res.status(400).json({ msg: "The mail or password does not correspond" });
     }
     const correctPassword = await bcryptjs.compare(
       password,
@@ -32,7 +36,7 @@ exports.login = async (req, res) => {
     if (!correctPassword) {
       return await res
         .status(400)
-        .json({ msg: "The username or password does not correspond" });
+        .json({ msg: "The mail or password does not correspond" });
     }
     const payLoad = { user: { id: foundUser.id } };
     jwt.sign(

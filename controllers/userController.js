@@ -2,6 +2,41 @@ const User = require("../models/userModel");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+
+/**
+ * @swagger
+ * /api/user/register:
+ *   post:
+ *     summary: Registra un nuevo usuario
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: "johndoe"
+ *               email:
+ *                 type: string
+ *                 example: "johndoe@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "password123"
+ *     responses:
+ *       200:
+ *         description: Usuario registrado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Error al registrar el usuario
+ */
+
 exports.createUser = async (req, res) => {
   const { username, email, password } = req.body;
   try {
